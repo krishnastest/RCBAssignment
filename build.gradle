@@ -10,10 +10,16 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+    implementation 'org.json:json:20220320'
+    testImplementation group: 'org.testng', name: 'testng', version: '7.6.1'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.3'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
+    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.0-alpha7'
+
 }
 
+
 test {
-    useJUnitPlatform()
+    useTestNG()
 }

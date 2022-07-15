@@ -1,55 +1,55 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import Player.*;
+import com.google.gson.Gson;
+import org.json.JSONObject;
+import org.testng.annotations.Test;
+
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Iterator;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONObject.*;
 
-public class TestRCB
-{
-    @SuppressWarnings("unchecked")
-    public static void main(String[] args)
-    {
-        //JSON parser object to parse read file
-        JSONParser jsonParser = new JSONParser();
 
-        try (FileReader reader = new FileReader("src/test/java/players.json"))
-        {
-            //Read JSON file
-            Object obj = jsonParser.parse(reader);
+public class TestRCB {
 
-            JSONArray playerlist = (JSONArray) obj;
-            System.out.println(playerlist);
+    @Test
+    public void findLocation() throws IOException {
+        Gson gson = new Gson();
 
-            //Iterate over employee array
-            playerlist.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
+        Path relativepath = Paths.get("src/test/java/players.json");
+        String jsonText = Files.readString(relativepath);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
+        AllPlayers playersdata = gson.fromJson(jsonText, AllPlayers.class);
+
+        Object playerlist = playersdata.getPlayer();
+        System.out.println(playerlist);
+
+
+
+    }
+    public static void printJsonObject(JSONObject jsonObj) {
+        for (String keyStr : jsonObj.keySet()) {
+            Object keyvalue = jsonObj.get(keyStr);
+
+            //Print key and value
+            System.out.println("key: "+ keyStr + " value: " + keyvalue);
+
+            //for nested objects iteration if required
+            //if (keyvalue instanceof JSONObject)
+            //    printJsonObject((JSONObject)keyvalue);
         }
     }
 
-    private static void parseEmployeeObject(JSONObject employee)
-    {
-        //Get employee object within list
-        JSONObject employeeObject = (JSONObject) employee.get("player");
+    public static void main(String[] args) throws IOException {
+        Gson gson = new Gson();
 
-        //Get employee first name
-        String firstName = (String) employeeObject.get("name");
-        System.out.println(firstName);
+        Path relativepath = Paths.get("src/test/java/players.json");
+        String jsonText = Files.readString(relativepath);
 
-        //Get employee last name
-        String lastName = (String) employeeObject.get("country");
-        System.out.println(lastName);
+        JSONObject playersdata = gson.fromJson(jsonText, JSONObject);
 
-        //Get employee website name
-        String website = (String) employeeObject.get("role");
-        System.out.println(website);
+        printJsonObject(playersdata);
     }
 }
