@@ -1,14 +1,11 @@
 package Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class AllPlayers {
     private String name;
     private String location;
-    private Object player = new ArrayList<>();
+    private ArrayList<Player> player = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -26,11 +23,11 @@ public class AllPlayers {
         this.location = location;
     }
 
-    public Object getPlayer() {
+    public ArrayList<Player> getPlayer() {
         return player;
     }
 
-    public void setPlayer(Object player) {
+    public void setPlayer(ArrayList<Player> player) {
         this.player = player;
     }
 }

@@ -1,7 +1,7 @@
 
 package Player;
 
-public abstract class Player {
+public class Player {
     private String name;
     private String country;
     private String role;
